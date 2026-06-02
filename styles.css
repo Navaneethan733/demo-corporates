@@ -72,8 +72,10 @@ h1, h2, h3 { font-weight: 700; line-height: 1.2; }
 .icon-btn:hover { transform: scale(1.1); color: var(--primary-color); }
 
 /* Navbar */
-.navbar { background: var(--bg-white); position: fixed; top: 0; width: 100%; z-index: 100; transition: all 0.3s ease; }
-.nav-container { max-width: 1400px; margin: 0 auto; padding: 1.25rem 5%; display: flex; justify-content: space-between; align-items: center; }
+.navbar { background: var(--bg-white); position: fixed; top: 0; width: 100%; z-index: 100; transition: box-shadow 0.3s ease, background 0.3s ease; }
+.navbar.scrolled { box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05); }
+.nav-container { max-width: 1400px; margin: 0 auto; padding: 0.75rem 5%; display: flex; justify-content: space-between; align-items: center; transition: padding 0.3s ease; }
+.navbar.scrolled .nav-container { padding: 0.45rem 5%; }
 .logo { display: flex; align-items: center; gap: 0.5rem; font-size: 1.5rem; font-weight: 800; color: var(--text-dark); }
 .nav-links { display: flex; gap: 2rem; list-style: none; }
 .nav-links a { color: var(--text-dark); text-decoration: none; font-size: 1rem; font-weight: 600; display: flex; align-items: center; gap: 0.25rem; transition: color 0.3s; position: relative; }
