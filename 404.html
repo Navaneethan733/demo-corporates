@@ -100,6 +100,12 @@
             transition: transform 0.3s;
         }
         .logo-link:hover { transform: scale(1.05); }
+        .logo-img {
+            height: 110px;
+            width: auto;
+            display: block;
+            object-fit: contain;
+        }
 
         /* 404 Number */
         .error-number {
@@ -276,13 +282,7 @@
     <!-- Content -->
     <div class="content">
         <a href="index.html" class="logo-link">
-            <svg width="32" height="32" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <g fill="var(--primary-color)">
-                    <path d="M 60 5 C 40 20, 10 40, 20 70 C 25 80, 45 70, 55 55 C 40 65, 25 55, 40 40 C 50 30, 60 15, 60 5 Z" />
-                    <path d="M 60 5 C 40 20, 10 40, 20 70 C 25 80, 45 70, 55 55 C 40 65, 25 55, 40 40 C 50 30, 60 15, 60 5 Z" transform="rotate(180 50 50)" />
-                </g>
-            </svg>
-            STACKLY
+            <img src="assets/logo.webp" alt="STACKLY Logo" class="logo-img">
         </a>
 
         <div class="error-number">404</div>
