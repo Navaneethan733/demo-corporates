@@ -27,26 +27,45 @@ function initHeroTextAnimation() {
     
     textParts.forEach(part => {
         // Create a wrapper for this part of the text
-        const partWrapper = document.createElement(part.isPrimary ? 'span' : 'span');
+        const partWrapper = document.createElement('span');
         if (part.isPrimary) partWrapper.className = 'text-primary';
         
-        // Split by characters
-        [...part.text].forEach(char => {
-            // We use overflow hidden wrapping to allow the character to slide up from below
-            const charWrap = document.createElement('span');
-            charWrap.className = 'char-wrap';
-            if (char === ' ') charWrap.style.width = '0.3em'; // preserve spaces
+        // Split by words and spaces
+        const items = part.text.split(/(\s+)/);
+        
+        items.forEach(item => {
+            if (!item) return; // skip empty strings
             
-            const charInner = document.createElement('span');
-            charInner.className = 'char-inner';
-            charInner.textContent = char;
-            
-            // Stagger transition delay
-            charInner.style.transitionDelay = `${charIndex * 0.03}s`;
-            
-            charWrap.appendChild(charInner);
-            partWrapper.appendChild(charWrap);
-            charIndex++;
+            if (/\s+/.test(item)) {
+                // It's whitespace - append standard space text nodes
+                [...item].forEach(() => {
+                    const spaceNode = document.createTextNode(' ');
+                    partWrapper.appendChild(spaceNode);
+                    charIndex++;
+                });
+            } else {
+                // It's a word - wrap in a container that prevents line breaking inside the word
+                const wordSpan = document.createElement('span');
+                wordSpan.className = 'hero-word';
+                
+                [...item].forEach(char => {
+                    const charWrap = document.createElement('span');
+                    charWrap.className = 'char-wrap';
+                    
+                    const charInner = document.createElement('span');
+                    charInner.className = 'char-inner';
+                    charInner.textContent = char;
+                    
+                    // Stagger transition delay
+                    charInner.style.transitionDelay = `${charIndex * 0.03}s`;
+                    
+                    charWrap.appendChild(charInner);
+                    wordSpan.appendChild(charWrap);
+                    charIndex++;
+                });
+                
+                partWrapper.appendChild(wordSpan);
+            }
         });
         
         heroHeadline.appendChild(partWrapper);
