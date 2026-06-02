@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 — Page Not Found | STACKLY</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #22c55e;
+            --primary-color-hover: #16a34a;
+            --bg-dark: #020617;
+            --text-light: #ffffff;
+            --text-light-muted: rgba(255, 255, 255, 0.5);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-light);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Animated background grid */
+        .bg-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(34, 197, 94, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(34, 197, 94, 0.04) 1px, transparent 1px);
+            background-size: 60px 60px;
+            animation: gridMove 20s linear infinite;
+        }
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(60px, 60px); }
+        }
+
+        /* Floating orbs */
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.3;
+            animation: orbFloat 8s ease-in-out infinite;
+        }
+        .orb-1 {
+            width: 400px; height: 400px;
+            background: var(--primary-color);
+            top: -100px; right: -100px;
+            animation-delay: 0s;
+        }
+        .orb-2 {
+            width: 300px; height: 300px;
+            background: #06b6d4;
+            bottom: -80px; left: -80px;
+            animation-delay: 3s;
+        }
+        .orb-3 {
+            width: 200px; height: 200px;
+            background: var(--primary-color);
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: 5s;
+            opacity: 0.15;
+        }
+        @keyframes orbFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -20px) scale(1.05); }
+            66% { transform: translate(-20px, 15px) scale(0.95); }
+        }
+
+        /* Content */
+        .content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 2rem;
+            max-width: 700px;
+        }
+
+        /* Logo */
+        .logo-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            color: var(--text-light);
+            font-size: 1.25rem;
+            font-weight: 800;
+            margin-bottom: 3rem;
+            transition: transform 0.3s;
+        }
+        .logo-link:hover { transform: scale(1.05); }
+
+        /* 404 Number */
+        .error-number {
+            font-size: clamp(8rem, 20vw, 14rem);
+            font-weight: 900;
+            line-height: 1;
+            letter-spacing: -0.05em;
+            position: relative;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary-color) 0%, #06b6d4 50%, var(--primary-color) 100%);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 4s ease-in-out infinite;
+        }
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        /* Glitch effect on the number */
+        .error-number::before,
+        .error-number::after {
+            content: '404';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, var(--primary-color) 0%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0.5;
+        }
+        .error-number::before {
+            animation: glitch-1 3s infinite;
+        }
+        .error-number::after {
+            animation: glitch-2 3s infinite;
+        }
+        @keyframes glitch-1 {
+            0%, 90%, 100% { clip-path: inset(0 0 100% 0); transform: translate(0); }
+            92% { clip-path: inset(20% 0 60% 0); transform: translate(-4px, 2px); }
+            94% { clip-path: inset(50% 0 20% 0); transform: translate(4px, -2px); }
+            96% { clip-path: inset(10% 0 70% 0); transform: translate(-2px, 1px); }
+        }
+        @keyframes glitch-2 {
+            0%, 90%, 100% { clip-path: inset(100% 0 0 0); transform: translate(0); }
+            91% { clip-path: inset(60% 0 10% 0); transform: translate(3px, -1px); }
+            93% { clip-path: inset(30% 0 40% 0); transform: translate(-3px, 2px); }
+            95% { clip-path: inset(70% 0 5% 0); transform: translate(2px, -1px); }
+        }
+
+        /* Subtitle */
+        .error-subtitle {
+            font-size: clamp(1.25rem, 3vw, 1.75rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            opacity: 0;
+            animation: fadeSlideUp 0.8s 0.3s forwards;
+        }
+
+        .error-description {
+            color: var(--text-light-muted);
+            font-size: 1.05rem;
+            line-height: 1.8;
+            max-width: 480px;
+            margin: 0 auto 3rem;
+            opacity: 0;
+            animation: fadeSlideUp 0.8s 0.5s forwards;
+        }
+
+        @keyframes fadeSlideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Buttons */
+        .btn-group {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            opacity: 0;
+            animation: fadeSlideUp 0.8s 0.7s forwards;
+        }
+
+        .btn-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.85rem 1.75rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            border: none;
+        }
+        .btn-primary {
+            background: var(--primary-color);
+            color: var(--text-light);
+        }
+        .btn-primary:hover {
+            background: var(--primary-color-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(34, 197, 94, 0.35);
+        }
+        .btn-outline {
+            background: transparent;
+            color: var(--text-light);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .btn-outline:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        .arrow-circle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 26px; height: 26px;
+            background: var(--text-light);
+            color: var(--primary-color);
+            border-radius: 50%;
+            font-size: 0.85rem;
+            transition: transform 0.3s;
+        }
+        .btn-primary:hover .arrow-circle { transform: rotate(45deg); }
+
+        /* Floating particles */
+        .particles {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+        }
+        .particle {
+            position: absolute;
+            width: 4px; height: 4px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            opacity: 0;
+            animation: particleRise linear infinite;
+        }
+        @keyframes particleRise {
+            0% { opacity: 0; transform: translateY(0) scale(0); }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.2; }
+            100% { opacity: 0; transform: translateY(-100vh) scale(1); }
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .btn-group { flex-direction: column; }
+            .btn-pill { width: 100%; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Animated Background -->
+    <div class="bg-grid"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
+    <!-- Floating Particles -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Content -->
+    <div class="content">
+        <a href="index.html" class="logo-link">
+            <svg width="32" height="32" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g fill="var(--primary-color)">
+                    <path d="M 60 5 C 40 20, 10 40, 20 70 C 25 80, 45 70, 55 55 C 40 65, 25 55, 40 40 C 50 30, 60 15, 60 5 Z" />
+                    <path d="M 60 5 C 40 20, 10 40, 20 70 C 25 80, 45 70, 55 55 C 40 65, 25 55, 40 40 C 50 30, 60 15, 60 5 Z" transform="rotate(180 50 50)" />
+                </g>
+            </svg>
+            STACKLY
+        </a>
+
+        <div class="error-number">404</div>
+        <h1 class="error-subtitle">Oops! Page Not Found</h1>
+        <p class="error-description">The page you're looking for seems to have wandered off. It may have been moved, deleted, or perhaps it never existed in the first place.</p>
+
+        <div class="btn-group">
+            <a href="index.html" class="btn-pill btn-primary">Back to Home <span class="arrow-circle">↗</span></a>
+            <a href="index.html#contact" class="btn-pill btn-outline">Contact Support</a>
+        </div>
+    </div>
+
+    <script>
+        // Generate floating particles
+        const particlesContainer = document.getElementById('particles');
+        const particleCount = 25;
+
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.width = particle.style.height = (Math.random() * 4 + 2) + 'px';
+            particle.style.animationDuration = (Math.random() * 8 + 6) + 's';
+            particle.style.animationDelay = (Math.random() * 10) + 's';
+            particle.style.bottom = '-10px';
+            particlesContainer.appendChild(particle);
+        }
+    </script>
+</body>
+</html>
